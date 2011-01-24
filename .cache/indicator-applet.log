@@ -1,7 +1,0 @@
-Binding '<Super>M' failed!
-
-/build/buildd/gtk+2.0-2.20.1/gtk/gtkstyle.c:1788: widget class `GtkImage' has no property named `x-ayatana-indicator-dynamic'
-about to connect to the signals
-Connected to Application Indicator Service.
-slider parent changed
-/build/buildd/gtk+2.0-2.20.1/gtk/gtkstyle.c:1788: widget class `GtkImage' has no property named `x-ayatana-indicator-dynamic'
