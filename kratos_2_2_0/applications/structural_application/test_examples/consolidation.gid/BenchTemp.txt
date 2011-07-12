@@ -1,0 +1,52 @@
+KRATOS_BENCHMARK | Float | bottom pressure | 1000.00018517 | 1e-05 | None
+KRATOS_BENCHMARK | Float | top displacement z | -9.55630782475e-07 | 1e-05 | None
+KRATOS_BENCHMARK | Float | bottom pressure | 1000.00026455 | 1e-05 | None
+KRATOS_BENCHMARK | Float | top displacement z | -1.56041347151e-06 | 1e-05 | None
+KRATOS_BENCHMARK | Float | bottom pressure | 999.9997774 | 1e-05 | None
+KRATOS_BENCHMARK | Float | top displacement z | -2.22877708434e-06 | 1e-05 | None
+KRATOS_BENCHMARK | Float | bottom pressure | 999.999077434 | 1e-05 | None
+KRATOS_BENCHMARK | Float | top displacement z | -3.01342470628e-06 | 1e-05 | None
+KRATOS_BENCHMARK | Float | bottom pressure | 999.999236874 | 1e-05 | None
+KRATOS_BENCHMARK | Float | top displacement z | -4.02608896565e-06 | 1e-05 | None
+KRATOS_BENCHMARK | Float | bottom pressure | 1000.00119898 | 1e-05 | None
+KRATOS_BENCHMARK | Float | top displacement z | -5.32688085229e-06 | 1e-05 | None
+KRATOS_BENCHMARK | Float | bottom pressure | 1000.00376298 | 1e-05 | None
+KRATOS_BENCHMARK | Float | top displacement z | -6.97670793885e-06 | 1e-05 | None
+KRATOS_BENCHMARK | Float | bottom pressure | 1000.00199014 | 1e-05 | None
+KRATOS_BENCHMARK | Float | top displacement z | -9.12430689828e-06 | 1e-05 | None
+KRATOS_BENCHMARK | Float | bottom pressure | 999.992222336 | 1e-05 | None
+KRATOS_BENCHMARK | Float | top displacement z | -1.1927522847e-05 | 1e-05 | None
+KRATOS_BENCHMARK | Float | bottom pressure | 999.985580283 | 1e-05 | None
+KRATOS_BENCHMARK | Float | top displacement z | -1.5546199811e-05 | 1e-05 | None
+KRATOS_BENCHMARK | Float | bottom pressure | 1000.00849243 | 1e-05 | None
+KRATOS_BENCHMARK | Float | top displacement z | -2.02668755602e-05 | 1e-05 | None
+KRATOS_BENCHMARK | Float | bottom pressure | 1000.04751184 | 1e-05 | None
+KRATOS_BENCHMARK | Float | top displacement z | -2.64222110651e-05 | 1e-05 | None
+KRATOS_BENCHMARK | Float | bottom pressure | 999.995747041 | 1e-05 | None
+KRATOS_BENCHMARK | Float | top displacement z | -3.44164529712e-05 | 1e-05 | None
+KRATOS_BENCHMARK | Float | bottom pressure | 999.860788601 | 1e-05 | None
+KRATOS_BENCHMARK | Float | top displacement z | -4.48484461204e-05 | 1e-05 | None
+KRATOS_BENCHMARK | Float | bottom pressure | 1000.0581678 | 1e-05 | None
+KRATOS_BENCHMARK | Float | top displacement z | -5.84266474807e-05 | 1e-05 | None
+KRATOS_BENCHMARK | Float | bottom pressure | 1000.3740954 | 1e-05 | None
+KRATOS_BENCHMARK | Float | top displacement z | -7.61161197998e-05 | 1e-05 | None
+KRATOS_BENCHMARK | Float | bottom pressure | 999.306483606 | 1e-05 | None
+KRATOS_BENCHMARK | Float | top displacement z | -9.91619837136e-05 | 1e-05 | None
+KRATOS_BENCHMARK | Float | bottom pressure | 999.996747488 | 1e-05 | None
+KRATOS_BENCHMARK | Float | top displacement z | -0.000129180434619 | 1e-05 | None
+KRATOS_BENCHMARK | Float | bottom pressure | 1003.9178141 | 1e-05 | None
+KRATOS_BENCHMARK | Float | top displacement z | -0.000168286406152 | 1e-05 | None
+KRATOS_BENCHMARK | Float | bottom pressure | 978.486980105 | 1e-05 | None
+KRATOS_BENCHMARK | Float | top displacement z | -0.00021922641392 | 1e-05 | None
+KRATOS_BENCHMARK | Float | bottom pressure | 873.760118031 | 1e-05 | None
+KRATOS_BENCHMARK | Float | top displacement z | -0.000285595468889 | 1e-05 | None
+KRATOS_BENCHMARK | Float | bottom pressure | 680.484320157 | 1e-05 | None
+KRATOS_BENCHMARK | Float | top displacement z | -0.000371029573353 | 1e-05 | None
+KRATOS_BENCHMARK | Float | bottom pressure | 435.705125544 | 1e-05 | None
+KRATOS_BENCHMARK | Float | top displacement z | -0.000471723604508 | 1e-05 | None
+KRATOS_BENCHMARK | Float | bottom pressure | 203.679952885 | 1e-05 | None
+KRATOS_BENCHMARK | Float | top displacement z | -0.000566664241836 | 1e-05 | None
+KRATOS_BENCHMARK | Float | bottom pressure | 55.9084497273 | 1e-05 | None
+KRATOS_BENCHMARK | Float | top displacement z | -0.000627125030187 | 1e-05 | None
+KRATOS_BENCHMARK | Float | bottom pressure | 6.20611611593 | 1e-05 | None
+KRATOS_BENCHMARK | Float | top displacement z | -0.000647460764527 | 1e-05 | None

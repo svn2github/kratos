@@ -1,0 +1,14 @@
+// Reading Elements
+
+ElementsGroup = structural_group;
+ELEMENTS[1] = UnsaturatedSoilsElement2PhaseSmallStrain3D20N([17,13,1,6,20,16,5,11,14,4,2,10,18,9,7,12,19,15,3,8],1);
+ELEMENTS[2] = UnsaturatedSoilsElement2PhaseSmallStrain3D20N([29,25,13,17,32,28,16,20,26,21,14,23,30,22,18,24,31,27,15,19],1);
+ELEMENTS[3] = UnsaturatedSoilsElement2PhaseSmallStrain3D20N([41,37,25,29,44,40,28,32,38,33,26,35,42,34,30,36,43,39,27,31],1);
+ELEMENTS[4] = UnsaturatedSoilsElement2PhaseSmallStrain3D20N([53,49,37,41,56,52,40,44,50,45,38,47,54,46,42,48,55,51,39,43],1);
+ELEMENTS[5] = UnsaturatedSoilsElement2PhaseSmallStrain3D20N([65,61,49,53,68,64,52,56,62,57,50,59,66,58,54,60,67,63,51,55],1);
+ELEMENTS[6] = UnsaturatedSoilsElement2PhaseSmallStrain3D20N([77,73,61,65,81,76,64,68,74,69,62,71,79,70,66,72,80,75,63,67],1);
+ELEMENTS[7] = UnsaturatedSoilsElement2PhaseSmallStrain3D20N([90,84,73,77,104,89,76,81,85,78,74,83,92,82,79,88,93,86,75,80],1);
+ELEMENTS[8] = UnsaturatedSoilsElement2PhaseSmallStrain3D20N([108,91,84,90,124,107,89,104,94,87,85,98,109,97,92,113,110,95,86,93],1);
+ELEMENTS[9] = UnsaturatedSoilsElement2PhaseSmallStrain3D20N([115,99,91,108,126,114,107,124,102,96,94,112,120,111,109,125,121,103,95,110],1);
+ELEMENTS[10] = UnsaturatedSoilsElement2PhaseSmallStrain3D20N([119,101,99,115,128,118,114,126,105,100,102,117,122,116,120,127,123,106,103,121],1);
+//======================================================================
