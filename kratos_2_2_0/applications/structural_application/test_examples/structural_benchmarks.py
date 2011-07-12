@@ -141,6 +141,27 @@ def Run():
 
         ################################################################
 
+	Text += "consolidation benchmark: "
+	os.chdir("consolidation.gid")
+	sys.path.append(os.getcwd())
+
+	print "Running consolidation benchmark..."
+	Msg = benchmarking.RunBenchmark("consolidation_benchmarking.py","consolidation_ref.txt")
+
+	if (Msg == True):
+		Text += "OK\n"
+		print "consolidation benchmark example successful"
+	else:
+		Text += "FAILED\n"
+		Text += Msg
+		Text += "\n\n"
+		print "consolidation benchmark example FAILED"
+
+	os.chdir("..")
+
+
+        ################################################################
+
 
 	Text += "arc length desplacement benchmark: "
 	os.chdir("arc_length_des.gid")
