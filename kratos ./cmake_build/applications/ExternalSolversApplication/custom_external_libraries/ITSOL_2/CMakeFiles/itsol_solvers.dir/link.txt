@@ -1,2 +1,0 @@
-/usr/bin/ar cr libitsol_solvers.a  CMakeFiles/itsol_solvers.dir/solveARMS.c.o
-/usr/bin/ranlib libitsol_solvers.a
