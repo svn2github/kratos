@@ -1,0 +1,365 @@
+//
+//   Project Name:        $Project:     TopOpt_Application $
+//   Last modified by:    $Author:      Gonzalez, Baumgärtner $
+//   Date:                $Date:        October 2015 $
+//   Revision:            $Revision:    0.0 $
+//
+
+// System includes
+
+// External includes 
+
+// Project includes
+#include "includes/define.h"
+
+#include "geometries/triangle_2d_3.h"
+#include "geometries/triangle_2d_6.h"
+#include "geometries/triangle_3d_3.h"
+
+#include "geometries/quadrilateral_2d_4.h"
+#include "geometries/quadrilateral_2d_8.h"
+#include "geometries/quadrilateral_3d_4.h"
+#include "geometries/quadrilateral_3d_8.h"
+#include "geometries/quadrilateral_3d_9.h"
+
+#include "geometries/tetrahedra_3d_4.h"
+#include "geometries/tetrahedra_3d_10.h"
+
+#include "geometries/hexahedra_3d_8.h"
+#include "geometries/hexahedra_3d_20.h"
+#include "geometries/hexahedra_3d_27.h"
+
+#include "geometries/prism_3d_6.h"
+#include "geometries/prism_3d_15.h"
+
+#include "geometries/line_2d.h"
+#include "geometries/line_2d_2.h"
+#include "geometries/line_3d_2.h"
+#include "geometries/line_3d_3.h"
+
+#include "geometries/point_2d.h"
+#include "geometries/point_3d.h"
+
+#include "includes/element.h"
+#include "includes/condition.h"
+#include "includes/variables.h"
+#include "includes/serializer.h"
+
+#include "topopt_application.h"
+
+
+namespace Kratos
+{
+
+//explicit schemes
+KRATOS_CREATE_3D_VARIABLE_WITH_COMPONENTS( MIDDLE_VELOCITY )
+
+//solution
+KRATOS_CREATE_VARIABLE(bool, COMPUTE_DYNAMIC_TANGENT )
+KRATOS_CREATE_VARIABLE(int, WRITE_ID )
+KRATOS_CREATE_VARIABLE(double, PREVIOUS_DELTA_TIME )
+KRATOS_CREATE_VARIABLE(double, NEWMARK_BETA )
+KRATOS_CREATE_VARIABLE(double, NEWMARK_GAMMA )
+KRATOS_CREATE_VARIABLE(double, RAYLEIGH_ALPHA )
+KRATOS_CREATE_VARIABLE(double, RAYLEIGH_BETA )
+
+//geometrical
+//KRATOS_CREATE_VARIABLE( double, AREA )
+//KRATOS_CREATE_VARIABLE( double, IX )
+//KRATOS_CREATE_VARIABLE( double, IY )
+//KRATOS_CREATE_VARIABLE( double, IZ )
+//KRATOS_CREATE_VARIABLE( double, CROSS_AREA )
+//KRATOS_CREATE_VARIABLE( double, MEAN_RADIUS )
+//KRATOS_CREATE_VARIABLE( int,    SECTION_SIDES )
+KRATOS_CREATE_VARIABLE( Matrix ,GEOMETRIC_STIFFNESS )
+
+//constitutive law
+KRATOS_CREATE_VARIABLE( std::string, CONSTITUTIVE_LAW_NAME )
+KRATOS_CREATE_VARIABLE( ConstitutiveLaw::Pointer, CONSTITUTIVE_LAW_POINTER )
+KRATOS_CREATE_VARIABLE( Matrix, CONSTITUTIVE_MATRIX )
+KRATOS_CREATE_VARIABLE( Matrix, DEFORMATION_GRADIENT )
+KRATOS_CREATE_VARIABLE( double, DETERMINANT_F )
+KRATOS_CREATE_VARIABLE( bool ,  IMPLEX  )
+
+//cross section
+//KRATOS_CREATE_VARIABLE( ShellCrossSection::Pointer, SHELL_CROSS_SECTION )
+//KRATOS_CREATE_VARIABLE( int, SHELL_CROSS_SECTION_OUTPUT_PLY_ID )
+//KRATOS_CREATE_VARIABLE( double,	SHELL_CROSS_SECTION_OUTPUT_PLY_LOCATION )
+
+//condition nodal load variables
+KRATOS_CREATE_3D_VARIABLE_WITH_COMPONENTS( POINT_LOAD )
+KRATOS_CREATE_3D_VARIABLE_WITH_COMPONENTS( LINE_LOAD )
+KRATOS_CREATE_3D_VARIABLE_WITH_COMPONENTS( SURFACE_LOAD )
+
+KRATOS_CREATE_3D_VARIABLE_WITH_COMPONENTS( LOCAL_POINT_LOAD )
+KRATOS_CREATE_3D_VARIABLE_WITH_COMPONENTS( LOCAL_LINE_LOAD )
+KRATOS_CREATE_3D_VARIABLE_WITH_COMPONENTS( LOCAL_SURFACE_LOAD )
+
+KRATOS_CREATE_3D_VARIABLE_WITH_COMPONENTS( POINT_TORQUE )
+//KRATOS_CREATE_3D_VARIABLE_WITH_COMPONENTS( LOCAL_POINT_TORQUE )
+
+//shell generalized variables
+//KRATOS_CREATE_VARIABLE( Matrix, SHELL_STRAIN )
+//KRATOS_CREATE_VARIABLE( Matrix, SHELL_STRAIN_GLOBAL )
+//KRATOS_CREATE_VARIABLE( Matrix, SHELL_CURVATURE )
+//KRATOS_CREATE_VARIABLE( Matrix, SHELL_CURVATURE_GLOBAL )
+//KRATOS_CREATE_VARIABLE( Matrix, SHELL_FORCE )
+//KRATOS_CREATE_VARIABLE( Matrix, SHELL_FORCE_GLOBAL )
+//KRATOS_CREATE_VARIABLE( Matrix, SHELL_MOMENT )
+//KRATOS_CREATE_VARIABLE( Matrix, SHELL_MOMENT_GLOBAL )
+
+//material orientation
+//KRATOS_CREATE_VARIABLE( Vector3, MATERIAL_ORIENTATION_DX )
+//KRATOS_CREATE_VARIABLE( Vector3, MATERIAL_ORIENTATION_DY )
+//KRATOS_CREATE_VARIABLE( Vector3, MATERIAL_ORIENTATION_DZ )
+
+//othotropic/anisotropic constants
+KRATOS_CREATE_VARIABLE( double, YOUNG_MODULUS_X )
+KRATOS_CREATE_VARIABLE( double, YOUNG_MODULUS_Y )
+KRATOS_CREATE_VARIABLE( double, YOUNG_MODULUS_Z )
+KRATOS_CREATE_VARIABLE( double, SHEAR_MODULUS_XY )
+KRATOS_CREATE_VARIABLE( double, SHEAR_MODULUS_YZ )
+KRATOS_CREATE_VARIABLE( double, SHEAR_MODULUS_XZ )
+KRATOS_CREATE_VARIABLE( double, POISSON_RATIO_XY )
+KRATOS_CREATE_VARIABLE( double, POISSON_RATIO_YZ )
+KRATOS_CREATE_VARIABLE( double, POISSON_RATIO_XZ )
+
+//material : hyperelastic_plastic
+//KRATOS_CREATE_VARIABLE( double, NORM_ISOCHORIC_STRESS )
+//KRATOS_CREATE_VARIABLE( double, PLASTIC_STRAIN )
+//KRATOS_CREATE_VARIABLE( double, DELTA_PLASTIC_STRAIN )
+//KRATOS_CREATE_VARIABLE( double, ISOTROPIC_HARDENING_MODULUS )
+//KRATOS_CREATE_VARIABLE( double, KINEMATIC_HARDENING_MODULUS )
+//KRATOS_CREATE_VARIABLE( double, HARDENING_EXPONENT )
+//KRATOS_CREATE_VARIABLE( double, REFERENCE_HARDENING_MODULUS )
+//KRATOS_CREATE_VARIABLE( double, INFINITY_HARDENING_MODULUS )
+
+//thermal
+KRATOS_CREATE_VARIABLE( double, THERMAL_EXPANSION_COEFFICIENT )
+KRATOS_CREATE_VARIABLE( double, REFERENCE_TEMPERATURE )
+//KRATOS_CREATE_VARIABLE( double, PLASTIC_DISSIPATION)
+//KRATOS_CREATE_VARIABLE( double, DELTA_PLASTIC_DISSIPATION)
+
+//element
+KRATOS_CREATE_VARIABLE( Vector, RESIDUAL_VECTOR )
+KRATOS_CREATE_VARIABLE( Vector, EXTERNAL_FORCES_VECTOR )
+KRATOS_CREATE_VARIABLE( Vector, INTERNAL_FORCES_VECTOR )
+KRATOS_CREATE_VARIABLE( Vector, CONTACT_FORCES_VECTOR )
+
+KRATOS_CREATE_VARIABLE( Vector, CAUCHY_STRESS_VECTOR )
+KRATOS_CREATE_VARIABLE( Vector, PK2_STRESS_VECTOR )
+
+KRATOS_CREATE_VARIABLE( Matrix, ALMANSI_STRAIN_TENSOR )
+KRATOS_CREATE_VARIABLE( Vector, GREEN_LAGRANGE_STRAIN_VECTOR )
+KRATOS_CREATE_VARIABLE( Vector, ALMANSI_STRAIN_VECTOR )
+
+KRATOS_CREATE_VARIABLE( Matrix, MATERIAL_STIFFNESS_MATRIX )
+KRATOS_CREATE_VARIABLE( Matrix, GEOMETRIC_STIFFNESS_MATRIX )
+
+KRATOS_CREATE_VARIABLE( double, VON_MISES_STRESS )
+
+//nodal dofs
+KRATOS_CREATE_3D_VARIABLE_WITH_COMPONENTS( IMPOSED_DISPLACEMENT )
+KRATOS_CREATE_3D_VARIABLE_WITH_COMPONENTS( IMPOSED_ROTATION )
+KRATOS_CREATE_VARIABLE( double, PRESSURE_REACTION )
+
+//SIMP variables
+KRATOS_CREATE_VARIABLE( double, E_MIN )
+KRATOS_CREATE_VARIABLE( double, PENAL )
+KRATOS_CREATE_VARIABLE( double, X_PHYS )
+KRATOS_CREATE_VARIABLE( double, YOUNG_MODULUS_OLD )
+KRATOS_CREATE_VARIABLE( double, DCDX )
+KRATOS_CREATE_VARIABLE( double, OBJ_FCN )
+KRATOS_CREATE_VARIABLE( double, X_PHYS_OLD )
+KRATOS_CREATE_VARIABLE( double, UKU )
+KRATOS_CREATE_VARIABLE( double, SEARCHRADIUS )
+KRATOS_CREATE_VARIABLE( double, Q )
+KRATOS_CREATE_VARIABLE( double, ELEM_CENTER_X )
+KRATOS_CREATE_VARIABLE( double, ELEM_CENTER_Y )
+KRATOS_CREATE_VARIABLE( double, ELEM_CENTER_Z )
+KRATOS_CREATE_VARIABLE( int, SOLID_VOID )
+
+
+
+
+    KratosTopOptApplication::KratosTopOptApplication():
+        mTopOptSmallDisplacementElement3D8N( 0, Element::GeometryType::Pointer( new Hexahedra3D8 <Node<3> >( Element::GeometryType::PointsArrayType( 8, Node<3>() ) ) ) ),
+
+        mPointLoad3DCondition( 0, Condition::GeometryType::Pointer( new Point3D <Node<3> >( Condition::GeometryType::PointsArrayType( 1, Node<3>() ) ) ) ),
+        mLineLoadCondition3D2N( 0, Condition::GeometryType::Pointer( new Line3D2 <Node<3> >( Condition::GeometryType::PointsArrayType( 2, Node<3>() ) ) ) ),
+
+        mSurfaceLoadCondition3D3N( 0, Condition::GeometryType::Pointer( new Triangle3D3 <Node<3> >( Condition::GeometryType::PointsArrayType( 3, Node<3>() ) ) ) ),
+        mSurfaceLoadCondition3D4N( 0, Condition::GeometryType::Pointer( new Quadrilateral3D4 <Node<3> >( Condition::GeometryType::PointsArrayType( 4, Node<3>() ) ) ) ),
+        mSurfaceLoadCondition3D6N( 0, Condition::GeometryType::Pointer( new Triangle2D6 <Node<3> >( Condition::GeometryType::PointsArrayType( 6, Node<3>() ) ) ) ),
+        mSurfaceLoadCondition3D8N( 0, Condition::GeometryType::Pointer( new Quadrilateral3D8 <Node<3> >( Condition::GeometryType::PointsArrayType( 8, Node<3>() ) ) ) ),
+        mSurfaceLoadCondition3D9N( 0, Condition::GeometryType::Pointer( new Quadrilateral3D9 <Node<3> >( Condition::GeometryType::PointsArrayType( 9, Node<3>() ) ) ) )
+
+    {}
+
+ 	
+ 	void KratosTopOptApplication::Register()
+ 	{
+ 		// calling base class register to register Kratos components
+ 		KratosApplication::Register();
+        std::cout << "----------------------------------------------------------" << std::endl;
+        std::cout << "-------- KRATOS TOPOLOGY OPTIMIZATION APPLICATION --------" << std::endl;
+        std::cout << "----------------------------------------------------------" << std::endl;
+
+        // Register elements
+        KRATOS_REGISTER_ELEMENT( "TopOptSmallDisplacementElement3D8N", mTopOptSmallDisplacementElement3D8N )
+
+
+        // Register variables
+ 
+        //conditions
+        KRATOS_REGISTER_CONDITION( "PointLoad3DCondition", mPointLoad3DCondition )
+        KRATOS_REGISTER_CONDITION( "LineLoadCondition3D2N", mLineLoadCondition3D2N )
+
+        KRATOS_REGISTER_CONDITION( "SurfaceLoadCondition3D3N", mSurfaceLoadCondition3D3N )
+        KRATOS_REGISTER_CONDITION( "SurfaceLoadCondition3D4N", mSurfaceLoadCondition3D4N )
+        KRATOS_REGISTER_CONDITION( "SurfaceLoadCondition3D6N", mSurfaceLoadCondition3D6N )
+        KRATOS_REGISTER_CONDITION( "SurfaceLoadCondition3D8N", mSurfaceLoadCondition3D8N )
+        KRATOS_REGISTER_CONDITION( "SurfaceLoadCondition3D9N", mSurfaceLoadCondition3D9N )
+
+        //Register Constitutive Laws
+        Serializer::Register( "HyperElastic3DLaw", mHyperElastic3DLaw );
+        Serializer::Register( "LinearElastic3DLaw", mLinearElastic3DLaw );
+
+
+        //explicit schemes
+        KRATOS_REGISTER_3D_VARIABLE_WITH_COMPONENTS( MIDDLE_VELOCITY )
+
+        //solution
+
+        KRATOS_REGISTER_VARIABLE( COMPUTE_DYNAMIC_TANGENT )
+        KRATOS_REGISTER_VARIABLE( WRITE_ID )
+        KRATOS_REGISTER_VARIABLE( PREVIOUS_DELTA_TIME )
+        KRATOS_REGISTER_VARIABLE( NEWMARK_BETA )
+        KRATOS_REGISTER_VARIABLE( NEWMARK_GAMMA )
+        KRATOS_REGISTER_VARIABLE( RAYLEIGH_ALPHA )
+        KRATOS_REGISTER_VARIABLE( RAYLEIGH_BETA )
+
+        //geometrical
+//        KRATOS_REGISTER_VARIABLE( AREA )
+//        KRATOS_REGISTER_VARIABLE( IX )
+//        KRATOS_REGISTER_VARIABLE( IY )
+//        KRATOS_REGISTER_VARIABLE( IZ )
+//        KRATOS_REGISTER_VARIABLE( CROSS_AREA )
+//        KRATOS_REGISTER_VARIABLE( MEAN_RADIUS )
+//        KRATOS_REGISTER_VARIABLE( SECTION_SIDES )
+        KRATOS_REGISTER_VARIABLE( GEOMETRIC_STIFFNESS )
+
+        //constitutive law
+        KRATOS_REGISTER_VARIABLE( CONSTITUTIVE_LAW_NAME )
+        KRATOS_REGISTER_VARIABLE( CONSTITUTIVE_LAW_POINTER )
+        KRATOS_REGISTER_VARIABLE( CONSTITUTIVE_MATRIX )
+        KRATOS_REGISTER_VARIABLE( DEFORMATION_GRADIENT )
+        KRATOS_REGISTER_VARIABLE( DETERMINANT_F )
+        KRATOS_REGISTER_VARIABLE( IMPLEX )
+
+        //cross section
+//        KRATOS_REGISTER_VARIABLE( SHELL_CROSS_SECTION )
+//        KRATOS_REGISTER_VARIABLE( SHELL_CROSS_SECTION_OUTPUT_PLY_ID )
+//        KRATOS_REGISTER_VARIABLE( SHELL_CROSS_SECTION_OUTPUT_PLY_LOCATION )
+
+        //condition nodal load variables
+        KRATOS_REGISTER_3D_VARIABLE_WITH_COMPONENTS( POINT_LOAD )
+        KRATOS_REGISTER_3D_VARIABLE_WITH_COMPONENTS( LINE_LOAD )
+        KRATOS_REGISTER_3D_VARIABLE_WITH_COMPONENTS( SURFACE_LOAD )
+
+        KRATOS_REGISTER_3D_VARIABLE_WITH_COMPONENTS( LOCAL_POINT_LOAD )
+        KRATOS_REGISTER_3D_VARIABLE_WITH_COMPONENTS( LOCAL_LINE_LOAD )
+        KRATOS_REGISTER_3D_VARIABLE_WITH_COMPONENTS( LOCAL_SURFACE_LOAD )
+
+        KRATOS_REGISTER_3D_VARIABLE_WITH_COMPONENTS( POINT_TORQUE )
+//        KRATOS_REGISTER_3D_VARIABLE_WITH_COMPONENTS( LOCAL_POINT_TORQUE )
+
+        //shell generalized variables
+//        KRATOS_REGISTER_VARIABLE( SHELL_STRAIN )
+//        KRATOS_REGISTER_VARIABLE( SHELL_FORCE )
+//        KRATOS_REGISTER_VARIABLE( SHELL_STRAIN_GLOBAL )
+//        KRATOS_REGISTER_VARIABLE( SHELL_FORCE_GLOBAL )
+//        KRATOS_REGISTER_VARIABLE( SHELL_CURVATURE )
+//        KRATOS_REGISTER_VARIABLE( SHELL_MOMENT )
+
+        //material orientation
+//        KRATOS_REGISTER_VARIABLE( MATERIAL_ORIENTATION_DX )
+//        KRATOS_REGISTER_VARIABLE( MATERIAL_ORIENTATION_DY )
+//        KRATOS_REGISTER_VARIABLE( MATERIAL_ORIENTATION_DZ )
+
+        //othotropic/anisotropic constants
+        KRATOS_REGISTER_VARIABLE( YOUNG_MODULUS_X )
+        KRATOS_REGISTER_VARIABLE( YOUNG_MODULUS_Y )
+        KRATOS_REGISTER_VARIABLE( YOUNG_MODULUS_Z )
+        KRATOS_REGISTER_VARIABLE( SHEAR_MODULUS_XY )
+        KRATOS_REGISTER_VARIABLE( SHEAR_MODULUS_YZ )
+        KRATOS_REGISTER_VARIABLE( SHEAR_MODULUS_XZ )
+        KRATOS_REGISTER_VARIABLE( POISSON_RATIO_XY )
+        KRATOS_REGISTER_VARIABLE( POISSON_RATIO_YZ )
+        KRATOS_REGISTER_VARIABLE( POISSON_RATIO_XZ )
+
+        //material : hyperelastic_plastic
+//        KRATOS_REGISTER_VARIABLE( NORM_ISOCHORIC_STRESS )
+//        KRATOS_REGISTER_VARIABLE( PLASTIC_STRAIN )
+//        KRATOS_REGISTER_VARIABLE( DELTA_PLASTIC_STRAIN )
+//        KRATOS_REGISTER_VARIABLE( ISOTROPIC_HARDENING_MODULUS )
+//        KRATOS_REGISTER_VARIABLE( KINEMATIC_HARDENING_MODULUS )
+//        KRATOS_REGISTER_VARIABLE( HARDENING_EXPONENT )
+//        KRATOS_REGISTER_VARIABLE( REFERENCE_HARDENING_MODULUS )
+//        KRATOS_REGISTER_VARIABLE( INFINITY_HARDENING_MODULUS )
+
+        //thermal
+        KRATOS_REGISTER_VARIABLE( THERMAL_EXPANSION_COEFFICIENT );
+        KRATOS_REGISTER_VARIABLE( REFERENCE_TEMPERATURE );
+//        KRATOS_REGISTER_VARIABLE( PLASTIC_DISSIPATION );
+//        KRATOS_REGISTER_VARIABLE( DELTA_PLASTIC_DISSIPATION );
+
+        //element
+        KRATOS_REGISTER_VARIABLE( RESIDUAL_VECTOR )
+        KRATOS_REGISTER_VARIABLE( EXTERNAL_FORCES_VECTOR )
+        KRATOS_REGISTER_VARIABLE( INTERNAL_FORCES_VECTOR )
+        KRATOS_REGISTER_VARIABLE( CONTACT_FORCES_VECTOR )
+
+        KRATOS_REGISTER_VARIABLE( CAUCHY_STRESS_VECTOR )
+        KRATOS_REGISTER_VARIABLE( PK2_STRESS_VECTOR )
+
+        KRATOS_REGISTER_VARIABLE( ALMANSI_STRAIN_TENSOR )
+        KRATOS_REGISTER_VARIABLE( GREEN_LAGRANGE_STRAIN_VECTOR )
+        KRATOS_REGISTER_VARIABLE( ALMANSI_STRAIN_VECTOR )
+
+        KRATOS_REGISTER_VARIABLE( MATERIAL_STIFFNESS_MATRIX )
+        KRATOS_REGISTER_VARIABLE( GEOMETRIC_STIFFNESS_MATRIX )
+
+        KRATOS_REGISTER_VARIABLE( VON_MISES_STRESS )
+
+        //nodal dofs
+        KRATOS_REGISTER_3D_VARIABLE_WITH_COMPONENTS( IMPOSED_DISPLACEMENT )
+        KRATOS_REGISTER_3D_VARIABLE_WITH_COMPONENTS( IMPOSED_ROTATION     )
+        KRATOS_REGISTER_VARIABLE( PRESSURE_REACTION )
+
+        //SIMP variables
+        KRATOS_REGISTER_VARIABLE( E_MIN )
+        KRATOS_REGISTER_VARIABLE( PENAL )
+        KRATOS_REGISTER_VARIABLE( X_PHYS )
+        KRATOS_REGISTER_VARIABLE( YOUNG_MODULUS_OLD )
+        KRATOS_REGISTER_VARIABLE( DCDX )
+        KRATOS_REGISTER_VARIABLE( OBJ_FCN )
+        KRATOS_REGISTER_VARIABLE( X_PHYS_OLD )
+        KRATOS_REGISTER_VARIABLE( UKU )
+        KRATOS_REGISTER_VARIABLE( SEARCHRADIUS )
+        KRATOS_REGISTER_VARIABLE( Q )
+        KRATOS_REGISTER_VARIABLE( ELEM_CENTER_X )
+        KRATOS_REGISTER_VARIABLE( ELEM_CENTER_Y )
+        KRATOS_REGISTER_VARIABLE( ELEM_CENTER_Z )
+        KRATOS_REGISTER_VARIABLE( SOLID_VOID )
+
+
+
+
+
+ 
+ 	}
+
+}  // namespace Kratos.
+
+

@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../applications/ExternalSolversApplication/custom_external_libraries/ITSOL_2/INC/defs.h
+
+../applications/ExternalSolversApplication/custom_external_libraries/ITSOL_2/INC/globheads.h
+
+../applications/ExternalSolversApplication/custom_external_libraries/ITSOL_2/INC/ios.h
+
+../applications/ExternalSolversApplication/custom_external_libraries/ITSOL_2/INC/protos.h
+stdio.h
+-
+globheads.h
+../applications/ExternalSolversApplication/custom_external_libraries/ITSOL_2/INC/globheads.h
+essl.h
+-
+
+/home/daniel/software/kratos/applications/ExternalSolversApplication/custom_external_libraries/ITSOL_2/solveARMS.c
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+math.h
+-
+globheads.h
+/home/daniel/software/kratos/applications/ExternalSolversApplication/custom_external_libraries/ITSOL_2/globheads.h
+defs.h
+/home/daniel/software/kratos/applications/ExternalSolversApplication/custom_external_libraries/ITSOL_2/defs.h
+protos.h
+/home/daniel/software/kratos/applications/ExternalSolversApplication/custom_external_libraries/ITSOL_2/protos.h
+ios.h
+/home/daniel/software/kratos/applications/ExternalSolversApplication/custom_external_libraries/ITSOL_2/ios.h
+time.h
+-
+assert.h
+-
+

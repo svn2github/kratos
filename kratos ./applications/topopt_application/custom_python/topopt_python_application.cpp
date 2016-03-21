@@ -1,0 +1,195 @@
+/*
+==============================================================================
+KratosTopOptApplication 
+A library based on:
+Kratos
+A General Purpose Software for Multi-Physics Finite Element Analysis
+Version 1.0 (Released on march 05, 2007).
+
+Copyright 2007
+Pooyan Dadvand, Riccardo Rossi, Janosch Stascheit, Felix Nagel 
+pooyan@cimne.upc.edu 
+rrossi@cimne.upc.edu
+janosch.stascheit@rub.de
+nagel@sd.rub.de
+- CIMNE (International Center for Numerical Methods in Engineering),
+Gran Capita' s/n, 08034 Barcelona, Spain
+- Ruhr-University Bochum, Institute for Structural Mechanics, Germany
+
+
+Permission is hereby granted, free  of charge, to any person obtaining
+a  copy  of this  software  and  associated  documentation files  (the
+"Software"), to  deal in  the Software without  restriction, including
+without limitation  the rights to  use, copy, modify,  merge, publish,
+distribute,  sublicense and/or  sell copies  of the  Software,  and to
+permit persons to whom the Software  is furnished to do so, subject to
+the following condition:
+
+Distribution of this code for  any  commercial purpose  is permissible
+ONLY BY DIRECT ARRANGEMENT WITH THE COPYRIGHT OWNERS.
+
+The  above  copyright  notice  and  this permission  notice  shall  be
+included in all copies or substantial portions of the Software.
+
+THE  SOFTWARE IS  PROVIDED  "AS  IS", WITHOUT  WARRANTY  OF ANY  KIND,
+EXPRESS OR  IMPLIED, INCLUDING  BUT NOT LIMITED  TO THE  WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT  SHALL THE AUTHORS OR COPYRIGHT HOLDERS  BE LIABLE FOR ANY
+CLAIM, DAMAGES OR  OTHER LIABILITY, WHETHER IN AN  ACTION OF CONTRACT,
+TORT  OR OTHERWISE, ARISING  FROM, OUT  OF OR  IN CONNECTION  WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+==============================================================================
+*/
+ 
+//
+//   Project Name:        $Project:     TopOpt_Application $
+//   Last modified by:    $Author:      Gonzalez, Baumgärtner $
+//   Date:                $Date:        October 2015 $
+//   Revision:            $Revision:    0.0 $
+//
+
+// System includes 
+
+#if defined(KRATOS_PYTHON)
+// External includes 
+#include <boost/python.hpp>
+
+
+// Project includes 
+#include "includes/define.h"
+
+#include "custom_python/add_custom_strategies_to_python.h"
+#include "custom_python/add_custom_utilities_to_python.h"
+#include "custom_python/add_custom_constitutive_laws_to_python.h"
+
+#include"topopt_application.h"
+
+namespace Kratos
+{
+
+namespace Python
+{
+
+  using namespace boost::python;
+
+
+  
+  BOOST_PYTHON_MODULE(KratosTopOptApplication)
+  {
+
+	  class_<KratosTopOptApplication, 
+			  KratosTopOptApplication::Pointer, 
+			  bases<KratosApplication>, boost::noncopyable >("KratosTopOptApplication")
+			;
+
+      AddCustomUtilitiesToPython();
+      AddCustomStrategiesToPython();
+      AddCustomConstitutiveLawsToPython();
+
+	//registering variables in python
+
+    //For process information
+    KRATOS_REGISTER_IN_PYTHON_VARIABLE( LOAD_RESTART )
+
+    //For explicit schemes
+    KRATOS_REGISTER_IN_PYTHON_3D_VARIABLE_WITH_COMPONENTS( MIDDLE_VELOCITY )
+
+    KRATOS_REGISTER_IN_PYTHON_3D_VARIABLE_WITH_COMPONENTS( POINT_LOAD )
+    KRATOS_REGISTER_IN_PYTHON_3D_VARIABLE_WITH_COMPONENTS( LINE_LOAD )
+    KRATOS_REGISTER_IN_PYTHON_3D_VARIABLE_WITH_COMPONENTS( SURFACE_LOAD )
+
+    KRATOS_REGISTER_IN_PYTHON_3D_VARIABLE_WITH_COMPONENTS( LOCAL_POINT_LOAD )
+    KRATOS_REGISTER_IN_PYTHON_3D_VARIABLE_WITH_COMPONENTS( LOCAL_LINE_LOAD )
+    KRATOS_REGISTER_IN_PYTHON_3D_VARIABLE_WITH_COMPONENTS( LOCAL_SURFACE_LOAD )
+
+    KRATOS_REGISTER_IN_PYTHON_3D_VARIABLE_WITH_COMPONENTS( POINT_TORQUE )
+//    KRATOS_REGISTER_IN_PYTHON_3D_VARIABLE_WITH_COMPONENTS( LOCAL_POINT_TORQUE )
+
+    KRATOS_REGISTER_IN_PYTHON_VARIABLE( CONSTITUTIVE_LAW_NAME )
+    KRATOS_REGISTER_IN_PYTHON_VARIABLE( CONSTITUTIVE_LAW_POINTER )
+    KRATOS_REGISTER_IN_PYTHON_VARIABLE( WRITE_ID )
+    KRATOS_REGISTER_IN_PYTHON_VARIABLE( PREVIOUS_DELTA_TIME )
+    KRATOS_REGISTER_IN_PYTHON_VARIABLE( RAYLEIGH_ALPHA )
+    KRATOS_REGISTER_IN_PYTHON_VARIABLE( RAYLEIGH_BETA )
+
+    KRATOS_REGISTER_IN_PYTHON_VARIABLE( EXTERNAL_FORCES_VECTOR )
+    KRATOS_REGISTER_IN_PYTHON_VARIABLE( INTERNAL_FORCES_VECTOR )
+    KRATOS_REGISTER_IN_PYTHON_VARIABLE( CONTACT_FORCES_VECTOR )
+
+    KRATOS_REGISTER_IN_PYTHON_VARIABLE( STABILIZATION_FACTOR )
+
+//    KRATOS_REGISTER_IN_PYTHON_VARIABLE( CROSS_AREA )
+//    KRATOS_REGISTER_IN_PYTHON_VARIABLE( MEAN_RADIUS )
+//    KRATOS_REGISTER_IN_PYTHON_VARIABLE( SECTION_SIDES )
+
+    KRATOS_REGISTER_IN_PYTHON_3D_VARIABLE_WITH_COMPONENTS( IMPOSED_DISPLACEMENT )
+    KRATOS_REGISTER_IN_PYTHON_3D_VARIABLE_WITH_COMPONENTS( IMPOSED_ROTATION )
+    KRATOS_REGISTER_IN_PYTHON_VARIABLE( PRESSURE_REACTION )
+
+    KRATOS_REGISTER_IN_PYTHON_VARIABLE( VON_MISES_STRESS )
+//    KRATOS_REGISTER_IN_PYTHON_VARIABLE( PLASTIC_STRAIN )
+//    KRATOS_REGISTER_IN_PYTHON_VARIABLE( DELTA_PLASTIC_STRAIN )
+
+    KRATOS_REGISTER_IN_PYTHON_VARIABLE( DETERMINANT_F )
+
+    // cross section
+//    KRATOS_REGISTER_IN_PYTHON_VARIABLE( SHELL_CROSS_SECTION )
+//    KRATOS_REGISTER_IN_PYTHON_VARIABLE( SHELL_CROSS_SECTION_OUTPUT_PLY_ID )
+//    KRATOS_REGISTER_IN_PYTHON_VARIABLE( SHELL_CROSS_SECTION_OUTPUT_PLY_LOCATION )
+
+    // shell generalized variables
+//    KRATOS_REGISTER_IN_PYTHON_VARIABLE( SHELL_STRAIN )
+//    KRATOS_REGISTER_IN_PYTHON_VARIABLE( SHELL_STRAIN_GLOBAL )
+//    KRATOS_REGISTER_IN_PYTHON_VARIABLE( SHELL_CURVATURE )
+//    KRATOS_REGISTER_IN_PYTHON_VARIABLE( SHELL_CURVATURE_GLOBAL )
+//    KRATOS_REGISTER_IN_PYTHON_VARIABLE( SHELL_FORCE )
+//    KRATOS_REGISTER_IN_PYTHON_VARIABLE( SHELL_FORCE_GLOBAL )
+//    KRATOS_REGISTER_IN_PYTHON_VARIABLE( SHELL_MOMENT )
+//    KRATOS_REGISTER_IN_PYTHON_VARIABLE( SHELL_MOMENT_GLOBAL )
+
+    // material orientation
+//    KRATOS_REGISTER_IN_PYTHON_VARIABLE( MATERIAL_ORIENTATION_DX )
+//    KRATOS_REGISTER_IN_PYTHON_VARIABLE( MATERIAL_ORIENTATION_DY )
+//    KRATOS_REGISTER_IN_PYTHON_VARIABLE( MATERIAL_ORIENTATION_DZ )
+
+    // orthotropic/anisotropic constants
+    KRATOS_REGISTER_IN_PYTHON_VARIABLE( YOUNG_MODULUS_X )
+    KRATOS_REGISTER_IN_PYTHON_VARIABLE( YOUNG_MODULUS_Y )
+    KRATOS_REGISTER_IN_PYTHON_VARIABLE( YOUNG_MODULUS_Z )
+    KRATOS_REGISTER_IN_PYTHON_VARIABLE( SHEAR_MODULUS_XY )
+    KRATOS_REGISTER_IN_PYTHON_VARIABLE( SHEAR_MODULUS_YZ )
+    KRATOS_REGISTER_IN_PYTHON_VARIABLE( SHEAR_MODULUS_XZ )
+    KRATOS_REGISTER_IN_PYTHON_VARIABLE( POISSON_RATIO_XY )
+    KRATOS_REGISTER_IN_PYTHON_VARIABLE( POISSON_RATIO_YZ )
+    KRATOS_REGISTER_IN_PYTHON_VARIABLE( POISSON_RATIO_XZ )
+
+//    KRATOS_REGISTER_IN_PYTHON_VARIABLE( PLASTIC_DISSIPATION );
+//    KRATOS_REGISTER_IN_PYTHON_VARIABLE( DELTA_PLASTIC_DISSIPATION );
+
+    //SIMP variables
+    KRATOS_REGISTER_IN_PYTHON_VARIABLE( E_MIN )
+    KRATOS_REGISTER_IN_PYTHON_VARIABLE( PENAL )
+    KRATOS_REGISTER_IN_PYTHON_VARIABLE( X_PHYS )
+    KRATOS_REGISTER_IN_PYTHON_VARIABLE( YOUNG_MODULUS_OLD )
+    KRATOS_REGISTER_IN_PYTHON_VARIABLE( DCDX )
+    KRATOS_REGISTER_IN_PYTHON_VARIABLE( OBJ_FCN )
+    KRATOS_REGISTER_IN_PYTHON_VARIABLE( X_PHYS_OLD )
+    KRATOS_REGISTER_IN_PYTHON_VARIABLE( UKU )
+    KRATOS_REGISTER_IN_PYTHON_VARIABLE( SEARCHRADIUS )
+    KRATOS_REGISTER_IN_PYTHON_VARIABLE( Q )
+    KRATOS_REGISTER_IN_PYTHON_VARIABLE( ELEM_CENTER_X )
+    KRATOS_REGISTER_IN_PYTHON_VARIABLE( ELEM_CENTER_Y )
+    KRATOS_REGISTER_IN_PYTHON_VARIABLE( ELEM_CENTER_Z )
+    KRATOS_REGISTER_IN_PYTHON_VARIABLE( SOLID_VOID )
+
+
+
+  }
+  
+  
+}  // namespace Python.
+  
+}  // namespace Kratos.
+
+#endif // KRATOS_PYTHON defined

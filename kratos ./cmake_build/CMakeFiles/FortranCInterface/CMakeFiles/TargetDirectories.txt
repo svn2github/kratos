@@ -1,0 +1,3 @@
+/home/daniel/software/kratos/cmake_build/CMakeFiles/FortranCInterface/CMakeFiles/FortranCInterface.dir
+/home/daniel/software/kratos/cmake_build/CMakeFiles/FortranCInterface/CMakeFiles/myfort.dir
+/home/daniel/software/kratos/cmake_build/CMakeFiles/FortranCInterface/CMakeFiles/symbols.dir
